@@ -3,19 +3,21 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Loader2, ArrowRight } from "lucide-react"
+import { Loader2, ArrowRight, Eye, EyeOff } from "lucide-react"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-const DEMO_ACCOUNTS: Record<string, { role: string; redirect: string }> = {
-  "brian@gmail.com": { role: "admin", redirect: "/whos-in" },
-  "kashifamjad@gmail.com": { role: "employee", redirect: "/dashboard" },
+const DEMO_ACCOUNTS: Record<string, { role: string; redirect: string; password: string }> = {
+  "brian@gmail.com": { role: "admin", redirect: "/whos-in", password: "1234" },
+  "kashifamjad@gmail.com": { role: "employee", redirect: "/dashboard", password: "1234" },
 }
 
 export function SignInForm() {
   const router = useRouter()
   const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
 
@@ -28,12 +30,15 @@ export function SignInForm() {
     const account = DEMO_ACCOUNTS[trimmed]
 
     setTimeout(() => {
-      if (account) {
-        toast.success(`Signed in as ${account.role}`)
-        router.push(account.redirect)
-      } else {
+      if (!account) {
         setError("No account found with this email")
         setIsLoading(false)
+      } else if (account.password !== password) {
+        setError("Incorrect password")
+        setIsLoading(false)
+      } else {
+        toast.success(`Signed in as ${account.role}`)
+        router.push(account.redirect)
       }
     }, 1000)
   }
@@ -55,6 +60,33 @@ export function SignInForm() {
           autoFocus
           className="h-11 rounded-lg border-zinc-200 px-3.5 text-sm text-zinc-900 shadow-sm transition-all placeholder:text-zinc-400 focus:border-[#009965] focus:ring-[#009965]/20"
         />
+      </div>
+
+      <div className="relative space-y-2">
+        <Input
+          id="password"
+          type={showPassword ? "text" : "password"}
+          placeholder="Password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value)
+            setError("")
+          }}
+          required
+          autoComplete="current-password"
+          className="h-11 rounded-lg border-zinc-200 px-3.5 pr-10 text-sm text-zinc-900 shadow-sm transition-all placeholder:text-zinc-400 focus:border-[#009965] focus:ring-[#009965]/20"
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600"
+        >
+          {showPassword ? (
+            <EyeOff className="h-4 w-4" />
+          ) : (
+            <Eye className="h-4 w-4" />
+          )}
+        </button>
         {error && (
           <p className="text-xs font-medium text-amber-600">{error}</p>
         )}
@@ -89,7 +121,7 @@ export function SignInForm() {
       <div className="space-y-1.5">
         <button
           type="button"
-          onClick={() => setEmail("brian@gmail.com")}
+          onClick={() => { setEmail("brian@gmail.com"); setPassword("1234") }}
           className="flex w-full cursor-pointer items-center justify-between rounded-lg border border-zinc-100 px-3.5 py-2.5 text-left transition-all hover:border-zinc-200 hover:bg-zinc-50"
         >
           <span className="font-mono text-xs text-zinc-500">brian@gmail.com</span>
@@ -99,7 +131,7 @@ export function SignInForm() {
         </button>
         <button
           type="button"
-          onClick={() => setEmail("kashifamjad@gmail.com")}
+          onClick={() => { setEmail("kashifamjad@gmail.com"); setPassword("1234") }}
           className="flex w-full cursor-pointer items-center justify-between rounded-lg border border-zinc-100 px-3.5 py-2.5 text-left transition-all hover:border-zinc-200 hover:bg-zinc-50"
         >
           <span className="font-mono text-xs text-zinc-500">kashifamjad@gmail.com</span>
