@@ -107,40 +107,6 @@ export function SignInForm() {
         )}
       </Button>
 
-      <div className="relative py-3">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-zinc-100" />
-        </div>
-        <div className="relative flex justify-center">
-          <span className="bg-white px-3 text-[10px] font-medium uppercase tracking-widest text-zinc-300">
-            Demo
-          </span>
-        </div>
-      </div>
-
-      <div className="space-y-1.5">
-        <button
-          type="button"
-          onClick={() => { setEmail("brian@gmail.com"); setPassword("1234") }}
-          className="flex w-full cursor-pointer items-center justify-between rounded-lg border border-zinc-100 px-3.5 py-2.5 text-left transition-all hover:border-zinc-200 hover:bg-zinc-50"
-        >
-          <span className="font-mono text-xs text-zinc-500">brian@gmail.com</span>
-          <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium text-zinc-400">
-            Admin
-          </span>
-        </button>
-        <button
-          type="button"
-          onClick={() => { setEmail("kashifamjad@gmail.com"); setPassword("1234") }}
-          className="flex w-full cursor-pointer items-center justify-between rounded-lg border border-zinc-100 px-3.5 py-2.5 text-left transition-all hover:border-zinc-200 hover:bg-zinc-50"
-        >
-          <span className="font-mono text-xs text-zinc-500">kashifamjad@gmail.com</span>
-          <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium text-zinc-400">
-            Employee
-          </span>
-        </button>
-      </div>
-
       <p className="pt-2 text-center text-[13px] text-zinc-400">
         Don&apos;t have an account?{" "}
         <Link
