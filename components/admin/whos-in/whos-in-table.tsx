@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { toast } from "sonner"
-import { ArrowUp } from "lucide-react"
+import { ArrowUp, Users } from "lucide-react"
 import {
   Table,
   TableBody,
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table"
 import { WhosInRow } from "./whos-in-row"
 import { ManualPunchDialog } from "./manual-punch-dialog"
+import { EmptyState } from "@/components/shared/empty-state"
 import type { EmployeeStatus } from "@/lib/types"
 
 interface WhosInTableProps {
@@ -34,15 +35,19 @@ export function WhosInTable({ data }: WhosInTableProps) {
 
   if (data.length === 0) {
     return (
-      <div className="rounded-lg bg-white py-20 text-center">
-        <p className="text-sm text-[#999]">No employees found</p>
+      <div className="rounded-lg border border-[#e0e0e0] bg-white">
+        <EmptyState
+          icon={Users}
+          title="No employees found"
+          description="Try adjusting your search query"
+        />
       </div>
     )
   }
 
   return (
     <>
-      <div className="overflow-hidden rounded-lg bg-white">
+      <div className="overflow-hidden rounded-lg border border-[#e0e0e0] bg-white">
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>

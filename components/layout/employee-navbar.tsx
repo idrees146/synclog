@@ -21,9 +21,9 @@ export function EmployeeNavbar() {
         {/* User nav — always visible, pushed to the right */}
         <div className="ml-auto shrink-0">
           <UserNav
-            name="James Mitchell"
-            email="james.mitchell@dealer.com"
-            initials="JM"
+            name="Kashif Amjad"
+            email="kashifamjad@gmail.com"
+            initials="KA"
             variant="figma"
           />
         </div>

@@ -27,8 +27,10 @@ export function WhosInRow({ data, onManualPunch }: WhosInRowProps) {
       <TableCell className="py-5 pl-8 pr-4 text-sm text-[#262626]">
         {employee.lastName}, {employee.firstName}
       </TableCell>
-      <TableCell className="py-5 pl-6 pr-2 text-sm font-medium text-[#262626]">
-        {isIn ? "IN" : "OUT"}
+      <TableCell className="py-5 pl-6 pr-2 text-sm font-semibold">
+        <span className={isIn ? "text-[#009965]" : "text-red-500"}>
+          {isIn ? "IN" : "OUT"}
+        </span>
       </TableCell>
       <TableCell className="py-5 pl-6 pr-4 font-mono text-sm tabular-nums text-[#515151]">
         {formatTime(lastPunchIn)}
@@ -37,14 +39,16 @@ export function WhosInRow({ data, onManualPunch }: WhosInRowProps) {
         {formatTime(lastPunchOut)}
       </TableCell>
       <TableCell className="py-5 pl-6 pr-8 text-right">
-        {isIn && (
-          <Button
-            onClick={() => onManualPunch(employee.id)}
-            className="h-9 cursor-pointer rounded-full bg-[#009965] px-5 text-sm font-medium text-white shadow-none transition-all duration-200 hover:bg-[#007a52] active:scale-95"
-          >
-            Punch Out
-          </Button>
-        )}
+        <Button
+          onClick={() => onManualPunch(employee.id)}
+          className={`h-9 cursor-pointer rounded-full px-5 text-sm font-medium shadow-none transition-all duration-200 active:scale-95 ${
+            isIn
+              ? "bg-[#009965] text-white hover:bg-[#007a52]"
+              : "border border-[#009965] bg-transparent text-[#009965] hover:bg-[#009965]/5"
+          }`}
+        >
+          {isIn ? "Punch Out" : "Punch In"}
+        </Button>
       </TableCell>
     </TableRow>
   )

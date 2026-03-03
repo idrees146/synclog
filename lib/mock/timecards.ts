@@ -94,7 +94,7 @@ function calculateTotals(entries: TimecardDayEntry[]) {
 }
 
 export function generateMockTimecards(): TimecardSummary[] {
-  return mockEmployees.map((employee) => {
+  return mockEmployees.slice(0, 5).map((employee) => {
     const entries = generateWeekEntries()
     return {
       employeeId: employee.id,

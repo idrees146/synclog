@@ -13,26 +13,46 @@ export function PunchButton({ status, onPunch }: PunchButtonProps) {
   const isIn = status === "in"
 
   return (
-    <Button
-      size="lg"
-      onClick={onPunch}
-      className={
-        isIn
-          ? "h-12 min-w-[220px] cursor-pointer rounded-full bg-gradient-to-r from-red-600 to-red-500 text-sm font-semibold text-white shadow-lg shadow-red-500/20 transition-all hover:from-red-500 hover:to-red-400 hover:shadow-xl hover:shadow-red-500/25"
-          : "h-12 min-w-[220px] cursor-pointer rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition-all hover:from-emerald-500 hover:to-emerald-400 hover:shadow-xl hover:shadow-emerald-500/25"
-      }
+    <div
+      className="rounded-full"
+      style={{
+        animation: isIn
+          ? "punchBreatheRed 2.5s ease-in-out infinite"
+          : "punchBreatheGreen 2.5s ease-in-out infinite",
+      }}
     >
-      {isIn ? (
-        <>
-          <LogOut className="mr-2 h-4 w-4" />
-          Punch Out
-        </>
-      ) : (
-        <>
-          <LogIn className="mr-2 h-4 w-4" />
-          Punch In
-        </>
-      )}
-    </Button>
+      <Button
+        size="lg"
+        onClick={onPunch}
+        className={`h-14 min-w-[260px] cursor-pointer rounded-full text-base font-semibold text-white transition-all duration-200 active:scale-95 ${
+          isIn
+            ? "bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400"
+            : "bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400"
+        }`}
+      >
+        {isIn ? (
+          <>
+            <LogOut className="mr-2 h-5 w-5" />
+            Punch Out
+          </>
+        ) : (
+          <>
+            <LogIn className="mr-2 h-5 w-5" />
+            Punch In
+          </>
+        )}
+      </Button>
+
+      <style>{`
+        @keyframes punchBreatheGreen {
+          0%, 100% { box-shadow: 0 0 16px rgba(0,153,101,0.15); }
+          50% { box-shadow: 0 0 28px rgba(0,153,101,0.4); }
+        }
+        @keyframes punchBreatheRed {
+          0%, 100% { box-shadow: 0 0 16px rgba(239,68,68,0.15); }
+          50% { box-shadow: 0 0 28px rgba(239,68,68,0.4); }
+        }
+      `}</style>
+    </div>
   )
 }

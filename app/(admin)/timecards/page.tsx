@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { format } from "date-fns"
+import { PageLoader } from "@/components/shared/page-loader"
 import { TimecardsOptionsPanel } from "@/components/admin/timecards/timecards-options-panel"
 import { TimecardsTable } from "@/components/admin/timecards/timecards-table"
 import { useDateRange } from "@/hooks/use-date-range"
@@ -19,6 +20,7 @@ export default function AdminTimecardsPage() {
   const payPeriodLabel = `Pay Period: ${format(range.from, "MM/dd/yyyy")} thru ${format(range.to, "MM/dd/yyyy")}`
 
   return (
+    <PageLoader>
     <div className="mx-auto max-w-360 px-6 pt-14 pb-20 md:px-10">
       {/* Title */}
       <div className="animate-in fade-in duration-500">
@@ -51,5 +53,6 @@ export default function AdminTimecardsPage() {
         <TimecardsTable timecards={filtered} />
       </div>
     </div>
+    </PageLoader>
   )
 }

@@ -1,5 +1,6 @@
 "use client"
 
+import { PageLoader } from "@/components/shared/page-loader"
 import { TimecardTable } from "@/components/timecard/timecard-table"
 import { TimecardToolbar } from "@/components/timecard/timecard-toolbar"
 import { useDateRange } from "@/hooks/use-date-range"
@@ -10,6 +11,7 @@ export default function MyTimecardPage() {
   const timecard = mockTimecards[0]
 
   return (
+    <PageLoader>
     <div className="animate-in fade-in duration-500 pb-16 pt-16">
       <div className="mx-auto max-w-[1440px] px-10">
         {/* Page title */}
@@ -28,5 +30,6 @@ export default function MyTimecardPage() {
         </div>
       </div>
     </div>
+    </PageLoader>
   )
 }
